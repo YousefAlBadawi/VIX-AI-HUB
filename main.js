@@ -76,6 +76,7 @@ function createWindow() {
     minWidth: 900,
     minHeight: 560,
     show: false,
+    frame: false,               // custom titlebar (window controls live in the renderer)
     backgroundColor: '#0B0E1A',
     icon: path.join(__dirname, 'build', 'icon-256.png'),
     autoHideMenuBar: true,
@@ -84,6 +85,7 @@ function createWindow() {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
       nodeIntegration: false,
+      webviewTag: true,         // <webview> is what loads the AI sites
       spellcheck: true
     }
   });
