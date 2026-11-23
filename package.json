@@ -1,7 +1,7 @@
 {
   "name": "vix-ai-hub",
   "productName": "VIX-AI HUB",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "One hub for AI chat sites without desktop apps - z.ai, DeepSeek, Kimi, Qwen, Grok, Le Chat, NotebookLM, Perplexity, HuggingChat, Poe and your own custom sites.",
   "main": "main.js",
   "author": "YousefAlBadawi",
