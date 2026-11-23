@@ -315,6 +315,12 @@ async function init() {
   $('#win-max').addEventListener('click', () => window.vix.maximize());
   $('#win-close').addEventListener('click', () => window.vix.close());
 
+  // double-click the empty tabbar area = maximize/unmaximize (standard titlebar behaviour)
+  $('#tabbar').addEventListener('dblclick', (e) => {
+    if (e.target.closest('.tabs') || e.target.closest('.win-controls') || e.target.closest('#btn-newtab')) return;
+    window.vix.maximize();
+  });
+
   // add modal
   $('#add-save').addEventListener('click', saveAddModal);
   $('#add-cancel').addEventListener('click', () => els.modalAdd.classList.add('hidden'));
