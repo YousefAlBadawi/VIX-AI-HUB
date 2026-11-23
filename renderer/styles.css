@@ -142,6 +142,7 @@ kbd {
 }
 .tabs { display: flex; align-items: stretch; height: 100%; overflow-x: auto; scrollbar-width: none; -webkit-app-region: no-drag; }
 .tabs::-webkit-scrollbar { display: none; }
+#btn-newtab { -webkit-app-region: no-drag; }
 
 .tab {
   display: flex; align-items: center; gap: 8px;
@@ -165,6 +166,7 @@ kbd {
 .win-controls {
   position: absolute; top: 0; right: 0; height: var(--tabbar-h);
   display: flex; z-index: 5;
+  -webkit-app-region: no-drag;
 }
 .win-btn {
   width: 46px; height: 100%;
