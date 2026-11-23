@@ -1,0 +1,67 @@
+{
+  "name": "vix-ai-hub",
+  "productName": "VIX-AI HUB",
+  "version": "1.0.0",
+  "description": "One hub for AI chat sites without desktop apps - z.ai, DeepSeek, Kimi, Qwen, Grok, Le Chat, NotebookLM, Perplexity, HuggingChat, Poe and your own custom sites.",
+  "main": "main.js",
+  "author": "YousefAlBadawi",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win"
+  },
+  "build": {
+    "appId": "com.vixai.hub",
+    "productName": "VIX-AI HUB",
+    "copyright": "Copyright © 2026 Yousef AlBadawi",
+    "directories": {
+      "buildResources": "build",
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "renderer/**/*",
+      "build/icon.ico",
+      "build/icon-256.png",
+      "build/tray-32.png"
+    ],
+    "asar": true,
+    "win": {
+      "icon": "build/icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "artifactName": "VIX-AI-HUB-Setup-${version}.${ext}",
+      "shortcutName": "VIX-AI HUB",
+      "deleteAppDataOnUninstall": false
+    },
+    "portable": {
+      "artifactName": "VIX-AI-HUB-Portable-${version}.${ext}"
+    }
+  },
+  "devDependencies": {
+    "electron": "^33.4.11"
+  },
+  "dependencies": {
+    "electron-builder": "^25.1.8"
+  },
+  "allowScripts": {
+    "electron@33.4.11": true
+  }
+}

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:;
+                 script-src 'self'; connect-src 'self' https:;">
+  <title>VIX-AI HUB</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- update banner -->
+  <div id="update-banner" class="update-banner hidden">
+    <span class="update-text"></span>
+    <button id="update-get" class="btn btn-small">Get update</button>
+    <button id="update-dismiss" class="btn btn-small btn-ghost" title="Dismiss">×</button>
+  </div>
+
+  <div id="app" class="app">
+    <!-- ================= sidebar ================= -->
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-head">
+        <div class="logo">
+          <img src="../build/icon-256.png" alt="">
+          <span class="logo-text">VIX-AI <b>HUB</b></span>
+        </div>
+        <button id="btn-home" class="icon-btn" title="Home" aria-label="Home">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+        </button>
+      </div>
+
+      <div class="search-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="site-search" type="text" placeholder="Search sites…" autocomplete="off" spellcheck="false">
+      </div>
+
+      <nav id="site-list" class="site-list" aria-label="Sites"></nav>
+
+      <div class="sidebar-foot">
+        <button id="btn-add" class="btn btn-add">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          Add site
+        </button>
+        <button id="btn-settings" class="icon-btn" title="Settings" aria-label="Settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.01a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.01a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.01a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ================= main area ================= -->
+    <main class="main">
+      <!-- tab bar -->
+      <div id="tabbar" class="tabbar">
+        <div id="tabs" class="tabs" role="tablist"></div>
+        <button id="btn-newtab" class="icon-btn" title="New tab (Ctrl+T)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+      </div>
+
+      <!-- traffic lights for frameless windows are not used; window controls -->
+      <div id="win-controls" class="win-controls">
+        <button id="win-min" class="win-btn" title="Minimize">
+          <svg viewBox="0 0 10 10"><path d="M1 5h8" stroke="currentColor" stroke-width="1.2"/></svg>
+        </button>
+        <button id="win-max" class="win-btn" title="Maximize">
+          <svg viewBox="0 0 10 10"><rect x="1.5" y="1.5" width="7" height="7" fill="none" stroke="currentColor" stroke-width="1.2"/></svg>
+        </button>
+        <button id="win-close" class="win-btn win-close" title="Close (to tray)">
+          <svg viewBox="0 0 10 10"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7" stroke="currentColor" stroke-width="1.2"/></svg>
+        </button>
+      </div>
+
+      <!-- home page -->
+      <section id="home" class="home">
+        <div class="home-inner">
+          <div class="hero">
+            <img src="../build/icon-256.png" class="hero-logo" alt="VIX-AI HUB">
+            <h1>VIX-AI <span>HUB</span></h1>
+            <p class="tagline">All your AI chats, one desktop hub.</p>
+          </div>
+          <div id="home-grid" class="home-grid"></div>
+          <p class="home-hint">Tip: log in once — each site keeps you signed in. <kbd>Ctrl</kbd>+<kbd>1…9</kbd> switches tabs, <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>H</kbd> shows the hub from anywhere.</p>
+        </div>
+      </section>
+
+      <!-- webviews -->
+      <div id="views" class="views"></div>
+    </main>
+  </div>
+
+  <!-- ================= add-site modal ================= -->
+  <div id="modal-add" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="add-title">
+    <div class="modal-card">
+      <h2 id="add-title">Add a site</h2>
+      <label class="field">
+        <span>Name</span>
+        <input id="add-name" type="text" maxlength="40" placeholder="e.g. Gemini" autocomplete="off">
+      </label>
+      <label class="field">
+        <span>URL</span>
+        <input id="add-url" type="text" placeholder="https://gemini.google.com/" autocomplete="off" spellcheck="false">
+      </label>
+      <label class="field">
+        <span>Color</span>
+        <div class="color-row">
+          <input id="add-color" type="color" value="#6366F1">
+          <div id="color-presets" class="color-presets"></div>
+        </div>
+      </label>
+      <p id="add-error" class="field-error hidden"></p>
+      <div class="modal-actions">
+        <button id="add-cancel" class="btn btn-ghost">Cancel</button>
+        <button id="add-save" class="btn">Add site</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= settings modal ================= -->
+  <div id="modal-settings" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+    <div class="modal-card modal-card-wide">
+      <h2 id="settings-title">Settings</h2>
+
+      <div class="setting-row">
+        <div class="setting-info">
+          <strong>Theme</strong>
+          <small>Follow system, or force dark / light.</small>
+        </div>
+        <div class="seg" id="seg-theme" data-key="theme">
+          <button data-value="system">System</button>
+          <button data-value="dark">Dark</button>
+          <button data-value="light">Light</button>
+        </div>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-info">
+          <strong>Close button behaviour</strong>
+          <small>What happens when you click ×.</small>
+        </div>
+        <div class="seg" id="seg-close" data-key="closeAction">
+          <button data-value="tray">Hide to tray</button>
+          <button data-value="exit">Quit</button>
+        </div>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-info">
+          <strong>Restore last site on launch</strong>
+          <small>Reopen the site you had open last time.</small>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="chk-restore">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-info">
+          <strong>Check for updates</strong>
+          <small id="update-status-line">Looks for a newer release on GitHub at launch.</small>
+        </div>
+        <button id="btn-check-update" class="btn btn-small">Check now</button>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-info">
+          <strong>Keyboard shortcuts</strong>
+          <small class="shortcut-list">
+            <span><kbd>Ctrl</kbd>+<kbd>1…9</kbd> switch tab</span>
+            <span><kbd>Ctrl</kbd>+<kbd>T</kbd> new tab</span>
+            <span><kbd>Ctrl</kbd>+<kbd>W</kbd> close tab</span>
+            <span><kbd>Ctrl</kbd>+<kbd>F</kbd> search sites</span>
+            <span><kbd>Ctrl</kbd>+<kbd>R</kbd> reload</span>
+            <span><kbd>Ctrl</kbd>+<kbd>±/0</kbd> zoom</span>
+            <span><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>H</kbd> show / hide</span>
+          </small>
+        </div>
+      </div>
+
+      <div class="setting-row">
+        <div class="setting-info">
+          <strong>About</strong>
+          <small id="about-line">VIX-AI HUB</small>
+        </div>
+        <button id="btn-repo" class="btn btn-small btn-ghost">GitHub</button>
+      </div>
+
+      <div class="modal-actions">
+        <button id="settings-close" class="btn">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= confirm-remove modal ================= -->
+  <div id="modal-confirm" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <h2>Remove site</h2>
+      <p id="confirm-text" class="confirm-text"></p>
+      <div class="modal-actions">
+        <button id="confirm-cancel" class="btn btn-ghost">Cancel</button>
+        <button id="confirm-ok" class="btn btn-danger">Remove</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
